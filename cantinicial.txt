@@ -1,0 +1,7 @@
+BTC: 0.96224
+USDT: 12590.1273481
+Monto decidido: 0.0018351171027685793
+Acción decidida: Vender
+Open: 68626.01, High: 68626.01, Low: 68582.82, Close: 68582.82
+Open: 68581.72, High: 68626.01, Low: 68568.76, Close: 68585.32
+Open: 68584.97, High: 68617.55, Low: 68582.02, Close: 68606.67
