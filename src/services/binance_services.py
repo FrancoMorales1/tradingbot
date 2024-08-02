@@ -1,7 +1,5 @@
 from binance import Client
 import logging
-import time
-from utils.utils import get_precision, round_quantity
 
 def create_binance_client():
     from config.config import API_KEY, API_SECRET, API_URL
@@ -35,23 +33,14 @@ def get_candles(client, symbol, interval, amount):
         logging.error(f"Error obteniendo velas: {e}")
         return []
 
-def execute_trade(client, symbol, action, usdt_balance, btc_balance, trade_percentage):
+def execute_trade(client, symbol, action, trade_amount_btc):
     try:
-        price = float(client.get_symbol_ticker(symbol=symbol)['price'])
-        precision = get_precision(symbol, client)
         if action == 'Comprar':
-            trade_amount_usdt = usdt_balance * trade_percentage
-            trade_amount_btc = trade_amount_usdt / price
-            trade_amount_btc = round_quantity(trade_amount_btc, precision)
-            if trade_amount_btc > 0:
-                order = client.order_market_buy(symbol=symbol, quantity=trade_amount_btc)
-                logging.info(f"Orden de compra ejecutada: {order}")
+            order = client.order_market_buy(symbol=symbol, quantity=trade_amount_btc)
+            logging.info(f"Orden de compra ejecutada: {order}")
         elif action == 'Vender':
-            trade_amount_btc = btc_balance * trade_percentage
-            trade_amount_btc = round_quantity(trade_amount_btc, precision)
-            if trade_amount_btc > 0:
-                order = client.order_market_sell(symbol=symbol, quantity=trade_amount_btc)
-                logging.info(f"Orden de venta ejecutada: {order}")
+            order = client.order_market_sell(symbol=symbol, quantity=trade_amount_btc)
+            logging.info(f"Orden de venta ejecutada: {order}")
     except Exception as e:
         logging.error(f"Error ejecutando trade: {e}")
 

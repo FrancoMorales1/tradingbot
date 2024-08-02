@@ -16,3 +16,11 @@ def get_precision(symbol, client):
 
 def round_quantity(quantity, precision):
     return round(quantity, precision)
+
+def adjust_values(array):
+    result = []
+    for subarray in array:
+        min_value = min(subarray)
+        adjusted_subarray = [value - min_value for value in subarray]
+        result.append(adjusted_subarray)
+    return result
